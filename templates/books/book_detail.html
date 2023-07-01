@@ -7,8 +7,9 @@
 <body>
 
 <h2>Книга: {{ book.title }} </h2>
+<h2>Категории: <a href="{% url 'category_detail' book.categories.pk %}"> {{ book.categories }}</a></h2>
 <img src="{{ book.poster.url }}" width="100" height="100">
-
+<h3>-= {{ book.categories.pk }} =-</h3>
 <p>Иллюстрации обложек</p>
 {% for image in images %}
 <img src="{{ image.picture.url }}" width="100" height="100">

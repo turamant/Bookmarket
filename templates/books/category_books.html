@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Category Books</title>
 </head>
 <body>
-$END$
+<h2>Category books</h2>
+{% for book in books %}
+<p><a href="{% url 'book_detail' book.id %}"> {{ book }}</a></p>
+{% endfor %}
+
 </body>
 </html>

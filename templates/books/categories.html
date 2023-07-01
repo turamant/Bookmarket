@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>All categories</title>
 </head>
 <body>
-
+<h2>All categories</h2>
+{% for cat in categories %}
+<li><a href="{% url 'category_detail' cat.pk %}"> {{ cat }}</a></li>
+{% endfor %}
 </body>
 </html>

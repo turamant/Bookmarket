@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
-from books.models import Book, Author
+from books.models import Book, Author, Category
 
 
 # Create your views here.
@@ -22,7 +22,7 @@ class AllBooksView(View):
 class BookDetailView(View):
     def get(self, request, pk):
         context = dict()
-        book = get_object_or_404(Book, id=pk)
+        book = Book.objects.select_related('categories').get(id=pk)
         images = book.images_set.all()
         authors = book.authors.all()
         context["book"] = book
@@ -35,9 +35,23 @@ class AuthorBooksView(View):
     def get(self, request, pk):
         context = dict()
         authors = Author.objects.prefetch_related('book_set').get(id=pk)
-        books = authors.book_set.all
+        books = authors.book_set.all()
         context["authors"] = authors
         context["books"] = books
         return render(request, "books/author_books.html", context)
 
 
+class AllCategoryView(View):
+    def get(self, request):
+        context = dict()
+        categories = Category.objects.all()
+        context["categories"] = categories
+        return render(request, "books/categories.html", context)
+
+
+class CategoryBooksDetailView(View):
+    def get(self, request, pk):
+        category = Category.objects.get(id=pk)
+        books = category.book_set.all()
+        context = {"books": books}
+        return render(request, "books/category_books.html", context)
