@@ -1,6 +1,0 @@
-[my_service]
-host=localhost
-user=postgres
-name=postgres
-password=postgres
-port=5432
