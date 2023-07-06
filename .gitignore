@@ -5,4 +5,5 @@ venv/
 .my_pg_service
 db.sqlite3
 media
+tutorial-env
 
