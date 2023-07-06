@@ -13,7 +13,7 @@
 <li><a href="{% url 'author_book' author.pk %}"> {{ author }}</a></li>
     {% endfor %}
 
-{% if book.pdf %}
+{% if book.pdf and user.is_authenticated %}
 Скачать: <a href="{{ book.pdf.url }}" download  class="btn btn-dark float-right">Download</a>
 {% endif %}
 
@@ -21,9 +21,10 @@
 
 <p>Описание:<br>
 {% if book.description %}
-{{ book.description }}
+    <div style="color:blue;">{{ book.description }}</div>
+
 {% endif %}
-</p>
+
 {% if images %}
 <p>Иллюстрации обложек</p>
     {% for image in images %}

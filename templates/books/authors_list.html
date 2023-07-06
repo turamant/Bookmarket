@@ -2,6 +2,8 @@
 
 {% load static %}
  {% block content %}
+
+
 {% for author in authors %}
 <li><a href="{% url 'author_book' author.pk %}">{{ author }}</a></li>
 {% endfor %}

@@ -1,9 +1,11 @@
 import os
 
 from django.conf import settings
+from django.db.models import Q
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.views.generic import ListView
 
 from books.models import Book, Author, Category
 
@@ -78,3 +80,16 @@ def download_pdf(request):
             response = HttpResponse(fh.read(), content_type="application/pdf")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
+
+
+class SearchResultsView(ListView):
+    model = Book
+    template_name = 'books/search_results.html'
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q")
+        object_list = Book.objects.filter(Q(title__iregex=query)
+                                          | Q(authors__last_name__icontains=query)
+                                          | Q(authors__first_name__icontains=query))
+        return object_list
+

@@ -19,16 +19,24 @@
             /></a>
             <h1 class="Strap">These books are the most brilliant of all books.</h1>
             <p>
-                    <a href="{% url 'books_list' %}">Все книги</a>
+                    <a href="{% url 'books_list' %}">Все книги</a> |
+                    <a href="{% url 'categories' %}">Все категории</a> |
+                   <a href="{% url 'authors_list' %}">Все авторы</a> |
 
-              |
-                    <a href="{% url 'categories' %}">Все категории</a>
+                    {% if user.is_authenticated %}
+                        Hi {{ user.username }}!
+                        <a href="{% url 'logout' %}">Log Out</a> |
+                    {% else %}
+                      <a href="{% url 'login' %}">Log In</a> |
+                      <a href="{% url 'signup' %}">Sign Up</a>
 
-               |
-                   <a href="{% url 'authors_list' %}">Все авторы</a>
-                </p>
+                    {% endif %}</p>
+            <form action="{% url 'search_results' %}" method="get">
+                <input name="q" type="text" placeholder="Search...">
+            </form>
 
         </div>
+
         {% block content %}
         {% endblock %}
        <footer>

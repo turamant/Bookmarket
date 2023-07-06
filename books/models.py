@@ -21,6 +21,7 @@ class Author(models.Model):
     last_name = models.CharField(verbose_name='Фамилия', max_length=100)
     first_name = models.CharField(verbose_name='Имя', max_length=100)
 
+
     def __str__(self):
         return f'{self.last_name} {self.first_name}'
 

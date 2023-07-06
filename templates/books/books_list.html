@@ -3,6 +3,7 @@
 {% load static %}
  {% block content %}
 <p>
+    {% include 'books/includes/right_menu.html' %}
 {% for book in books %}
     <a href="{% url 'book_detail' book.pk %}"> <img src="{{ book.poster.url }}" width="110" height="150"/></a>
 {% endfor %}
