@@ -1,4 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+import os
+
+from django.conf import settings
+from django.http import FileResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 
 from books.models import Book, Author, Category
@@ -17,6 +21,16 @@ class AllBooksView(View):
         books = Book.objects.all()
         context["books"] = books
         return render(request, "books/books_list.html", context)
+
+
+class AllAuthorsView(View):
+    template_name = "books/authors_list.html"
+    context = dict()
+
+    def get(self, request):
+        authors = Author.objects.all()
+        self.context["authors"] = authors
+        return render(request, self.template_name, self.context)
 
 
 class BookDetailView(View):
@@ -55,3 +69,12 @@ class CategoryBooksDetailView(View):
         books = category.book_set.all()
         context = {"books": books, "category": category}
         return render(request, "books/category_books.html", context)
+
+
+def download_pdf(request):
+    file_path = os.path.join(settings.MEDIA_ROOT)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response

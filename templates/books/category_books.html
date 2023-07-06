@@ -4,8 +4,11 @@
  {% block content %}
 
 <h2>Книги из категори: "{{ category.title }}"</h2>
+<p>
 {% for book in books %}
-<p><a href="{% url 'book_detail' book.id %}"> {{ book }}</a></p>
+<a href="{% url 'book_detail' book.id %}"><img src="{{ book.poster.url }}" width="110" height="150"/></a>
 {% endfor %}
+</p>
+
 
 {% endblock %}

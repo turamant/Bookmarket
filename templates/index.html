@@ -3,81 +3,88 @@
 {% load static %}
  {% block content %}
 
-        <div class="Header">
-            <a href="/" class="LogoWrapper"
-                ><img src="{% static 'img/SOC-Logo.png' %}" alt="Scone O'Clock logo"
-            /></a>
-            <h1 class="Strap">This books: the most resplendent of books</h1>
-        </div>
         <div class="IntroWrapper">
             <h2 class="IntroText">
-                Occasionally maligned and misunderstood; the scone is a
-                quintessentially British classic.
+                Иногда оклеветанный и неправильно понятый; django — типичная классика.
             </h2>
             <div class="MoneyShot">
                 <img
                     class="MoneyShotImg"
-                    src="{% static 'img/scones.jpg' %}"
+                    src="{% static 'img/django2.jpg' %}"
                     alt="Incredible scones"
                 />
                 <p class="ImageCaption">
-                    Incredible scones, picture from Wikipedia
+                    Django is cool banana!
                 </p>
             </div>
         </div>
-        <p>Recipe and serving suggestions follow.</p>
+        <p>Рекомендации по рецепту и подаче ...</p>
         <div class="Ingredients">
-            <h3 class="SubHeader">Ingredients</h3>
-            <ul>
-                <li>350g self-raising flour, and a little spare for dusting</li>
-                <li>¼ tsp salt</li>
-                <li>1 tsp baking powder</li>
-                <li>85g butter, cut into cubes</li>
-                <li>3 tbsp caster sugar</li>
-                <li>175ml milk</li>
-                <li>1 tsp vanilla extract</li>
-                <li>squeeze lemon juice (see Know-how below)</li>
-                <li>beaten egg, to glaze</li>
-                <li>jam and clotted cream, to serve</li>
-            </ul>
+            <h3 class="SubHeader">Кусok кода Django</h3>
+            <code>
+                class Book(models.Model):</br>
+                title = models.CharField(verbose_name='title', max_length=100, unique=True)</br>
+                    authors = models.ManyToManyField(Author)</br>
+                    poster = models.ImageField(verbose_name='poster', upload_to="img/")</br>
+                    categories = models.ForeignKey(Category, on_delete=models.CASCADE)</br>
+                    pdf = models.FileField(verbose_name='pdf', upload_to="pdf", null=True, blank=True)</br>
+                    </br>
+                class BooksMainPageView(View):</br>
+                    def get(self, request):</br>
+                        return render(request, "books/index.html")</br>
+            </code>
         </div>
         <div class="HowToMake">
-            <h3 class="SubHeader">Method</h3>
+            <h3 class="SubHeader">Цитаты</h3>
             <ol class="MethodWrapper">
                 <li>
-                    <a href="{% url 'books_list' %}">Все книги</a>
+                    Каждая веб страница в нашем проекте Django нуждается в файлах urls.py и views.py что бы
+                    придти к шаблону. Для новичков факт того, что порядок не имеет значения и нам нужны
+                    все 3 файла и очень часто четвертый файл models.py для базы данных, сбивает с толку.
+                    Обычно я предпочитаю начинать с urls и работать от него, но не существует «правильного
+                    способа» создания этой связанной сети файлов Django.
+                    Давайте начнем с нашего urls.py на уровне проекта, чтобы установить правильный путь для
+                    веб страниц в пределах приложения. Поскольку мы хотим создать домашнюю страницу, мы
+                    не добавляем дополнительный префикс к маршруту URL, который обозначается пустой
+                    строкой " ". Мы также импортируем include во второй строке, чтобы кратко добавить
+                    приложение pages в наш основной файл urls.py .
                 </li>
                 <li>
-                    <a href="{% url 'categories' %}">Все категории</a>
+                    Теперь, когда у нас имеется класс Cart для управления корзиной, необходимо
+                    создать представления, чтобы добавлять, обновлять или удалять товары из
+                    корзины. Нужно создать следующие ниже представления:
+                    <ol>представление добавления или обновления товаров в корзине, которое
+                    может обрабатывать текущие и новые количества;</ol>
+                    <ol>представление удаления товаров из корзины;</ol>
+                    <ol>представление отображения товарных позиций корзины и итоговых
+                        величин.</ol>
                 </li>
                 <li>
-                    Make a well in the dry mix, then add the liquid and combine
-                    it quickly with a cutlery knife – it will seem pretty wet at
-                    first. Spread some flour onto the work surface and tip the
-                    dough out. Dredge the dough and your hands with a little
-                    more flour, then fold the dough over 2-3 times until it's
-                    smoother. Now pat it into a round shape about 4cm deep.
+                    Когда SVG-графика вставлена в тег object или непосредственно в код страницы, по-
+                    является возможность работать с SVG-графикой через JavaScript. Средствами
+                    JavaScript можно изменить класс самого SVG-элемента или элемента, в который за-
+                    ключена SVG-графика. Это должно инициировать запуск CSS-анимации, например:
+                    <p><code>svg {<br>
+                    /* нет анимации */<br>
+                    }<br>
+                    .added-with-js svg {<br>
+                    /* есть анимация */<br>
+                        }</code></p>
+                    Также можно применить эффект анимации к SVG-графике с помощью Java­
+                    Script
                 </li>
                 <li>
-                    Take a 5cm cutter (Pro-tip – smooth-edged cutters tend to
-                    cut more cleanly, giving a better rise) and dip it into some
-                    flour. Plunge into the dough, then repeat until you have
-                    four scones. By this point you’ll probably need to press
-                    what's left of the dough back into a round to cut out
-                    another four.
-                </li>
-                <li>
-                    Brush the tops with beaten egg, then place onto the hot
-                    baking tray.
-                </li>
-                <li>
-                    Bake for 10 minutes until risen and golden on the top. Eat
-                    just warm or cold on the day of baking, generously (and I do
-                    mean generously) topped with jam and clotted cream.
-                </li>
-                <li>
-                    If freezing, freeze once cool. Defrost, then put in a low
-                    oven (about 160&deg;C) for a few minutes to refresh.
+                    Если вы выполните эти шаги, получившийся пакет mymodule будет работать,
+                    как единый логический модуль:
+                    <p>>> import mymodule<br>
+                    >>> a = mymodule.A()<br>
+                    >>> a.spam()<br>
+                    A.spam<br>
+                    >>> b = mymodule.B()<br>
+                    >>> b.bar()<br>
+                    B.bar<br>
+                    >>><br>
+                    </p>
                 </li>
             </ol>
         </div>

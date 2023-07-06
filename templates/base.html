@@ -12,8 +12,29 @@
         <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     </head>
        <body>
+
+        <div class="Header">
+            <a href="/" class="LogoWrapper"
+                ><img src="{% static 'img/library.jpeg' %}" width="1000" height="50" alt="Scone O'Clock logo"
+            /></a>
+            <h1 class="Strap">These books are the most brilliant of all books.</h1>
+            <p>
+                    <a href="{% url 'books_list' %}">Все книги</a>
+
+              |
+                    <a href="{% url 'categories' %}">Все категории</a>
+
+               |
+                   <a href="{% url 'authors_list' %}">Все авторы</a>
+                </p>
+
+        </div>
         {% block content %}
         {% endblock %}
+       <footer>
+
+           Copyright reserved(c)
+       </footer>
        </body>
 
 </html>

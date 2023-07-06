@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-<h2>Все категории книг</h2>
 {% for cat in categories %}
 <li><a href="{% url 'category_detail' cat.pk %}"> {{ cat }}</a></li>
 {% endfor %}

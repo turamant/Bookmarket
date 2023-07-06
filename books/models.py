@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 
 from books.fields import WEBPField
@@ -28,7 +29,9 @@ class Book(models.Model):
     title = models.CharField(verbose_name='title', max_length=100, unique=True)
     authors = models.ManyToManyField(Author)
     poster = models.ImageField(verbose_name='poster', upload_to="img/")
+    description = models.TextField(max_length=1000)
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
+    pdf = models.FileField(verbose_name='pdf', upload_to="pdf", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -50,6 +53,5 @@ class Images(models.Model):
         width_field='width'
     )
 
-
-
-
+    def __str__(self):
+        return f'Картинка: {self.book}'

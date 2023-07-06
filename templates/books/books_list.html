@@ -2,8 +2,9 @@
 
 {% load static %}
  {% block content %}
-<h2>Список всех книг</h2>
+<p>
 {% for book in books %}
-    <p><a href="{% url 'book_detail' book.pk %}"> {{ book.title }}</a></p>
+    <a href="{% url 'book_detail' book.pk %}"> <img src="{{ book.poster.url }}" width="110" height="150"/></a>
 {% endfor %}
+</p>
 {% endblock %}
