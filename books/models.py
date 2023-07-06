@@ -1,6 +1,15 @@
+import uuid
+
 from django.db import models
 
+from books.fields import WEBPField
+from django.utils.translation import gettext_lazy as _
+
+
 # Create your models here.
+
+
+
 
 
 class Category(models.Model):
@@ -28,8 +37,22 @@ class Book(models.Model):
         return self.title
 
 
+def image_folder(instance, filename):
+    return 'books-picture/{}.webp'.format(uuid.uuid4().hex)
+
+
 class Images(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='images/')
+    height = models.IntegerField(verbose_name=_('Height'), default=0, blank=True, null=True)
+    width = models.IntegerField(verbose_name=_('Width'), default=0, blank=True, null=True)
+    image = WEBPField(
+        verbose_name=_('Image'),
+        upload_to=image_folder,
+        height_field='height',
+        width_field='width'
+    )
+
+
 
 
