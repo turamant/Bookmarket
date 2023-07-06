@@ -9,9 +9,6 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
-
-
-
 class Category(models.Model):
     title = models.CharField(verbose_name='title', max_length=100, unique=True)
 

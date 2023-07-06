@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail Book</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load static %}
+
+ {% block content %}
 <h2>Автор: {{ authors }}</h2>
 <h2>Книги: </h2>
         <ul>
     {% for book in books %}
         <li><a href="{% url 'book_detail' book.pk %}"> {{ book.title }} </a></li>
-            <img src="{{ book.poster.url }}" width="100" height="100">
+        <img src="{{ book.poster.url }}" width="100" height="100">
     {% endfor %}
     </ul>
 
 
-
-
-</body>
-</html>
+{% endblock %}

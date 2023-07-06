@@ -53,5 +53,5 @@ class CategoryBooksDetailView(View):
     def get(self, request, pk):
         category = Category.objects.get(id=pk)
         books = category.book_set.all()
-        context = {"books": books}
+        context = {"books": books, "category": category}
         return render(request, "books/category_books.html", context)

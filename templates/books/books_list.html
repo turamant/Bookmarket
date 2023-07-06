@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books list</title>
-</head>
-<h2>Hello list</h2>
-<body>
+{% extends 'base.html' %}
+
+{% load static %}
+ {% block content %}
+<h2>Список всех книг</h2>
 {% for book in books %}
     <p><a href="{% url 'book_detail' book.pk %}"> {{ book.title }}</a></p>
 {% endfor %}
-
-</body>
-</html>
+{% endblock %}
