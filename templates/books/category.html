@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.title }} | {% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h2>Категория: {{ category.title }}</h2>
+        </div>
+         {% for book in category.book_set.all %}
+            {% include 'books/parts/list_item.html' %}
+        {% endfor %}
+    </div>
+{% endblock%}

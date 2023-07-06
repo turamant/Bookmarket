@@ -12,6 +12,10 @@ from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
     title = models.CharField(verbose_name='title', max_length=100, unique=True)
+    ordering = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordering']
 
     def __str__(self):
         return self.title

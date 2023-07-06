@@ -93,3 +93,8 @@ class SearchResultsView(ListView):
                                           | Q(authors__first_name__icontains=query))
         return object_list
 
+def category(request, pk):
+    category = get_object_or_404(Category, id=pk)
+
+    return render(request, 'books/category.html', {'category': category})
+
