@@ -50,6 +50,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'users.midlware.log_out_auto.html_optimize'
+    #'users.midlware.log_out_auto.logout_on_timeout',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -65,7 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'books.context_processors.menu_categories',
+                'books.context_processors.category_context.menu_categories',
+                'books.context_processors.books_context.last_books',
             ],
             'loaders': [
                 ('django.template.loaders.cached.Loader', [
@@ -145,6 +149,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+LOGOUT_TIMEOUT = 1 * 60  # 20 минут
 
 
 

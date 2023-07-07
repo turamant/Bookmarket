@@ -37,4 +37,9 @@
 {% endfor %}
 {% endif %}
 
+<h2>Книи поступившие недавно: </h2>
+{% for book in last_books %}
+    <img src="{{ book.poster.url}}" width="110" height="150">
+{% endfor %}
+
 {% endblock %}

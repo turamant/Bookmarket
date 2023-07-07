@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -19,9 +20,12 @@ class BooksMainPageView(View):
 
 class AllBooksView(View):
     def get(self, request):
+        paginator = Paginator(Book.objects.all(), per_page=20)
+        page = paginator.page(request.GET.get('page', 1))
         context = dict()
-        books = Book.objects.all()
-        context["books"] = books
+        #books = Book.objects.all()
+        context["books"] = page.object_list
+        context["page_obj"] = page
         return render(request, "books/books_list.html", context)
 
 

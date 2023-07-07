@@ -37,6 +37,11 @@ class Book(models.Model):
     description = models.TextField(max_length=1000)
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     pdf = models.FileField(verbose_name='pdf', upload_to="pdf", null=True, blank=True)
+    year = models.PositiveIntegerField(verbose_name='Год выпуска')
+
+    class Meta:
+        ordering = ('-year',)
+
 
     def __str__(self):
         return self.title
