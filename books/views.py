@@ -1,10 +1,11 @@
 import os
-
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import FileResponse, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
 
@@ -20,10 +21,10 @@ class BooksMainPageView(View):
 
 class AllBooksView(View):
     def get(self, request):
-        paginator = Paginator(Book.objects.all(), per_page=20)
+        paginator = Paginator(Book.objects.filter(is_visible=True), per_page=2)
         page = paginator.page(request.GET.get('page', 1))
         context = dict()
-        #books = Book.objects.all()
+        # books = Book.objects.all()
         context["books"] = page.object_list
         context["page_obj"] = page
         return render(request, "books/books_list.html", context)
@@ -97,8 +98,8 @@ class SearchResultsView(ListView):
                                           | Q(authors__first_name__icontains=query))
         return object_list
 
+
 def category(request, pk):
     category = get_object_or_404(Category, id=pk)
 
     return render(request, 'books/category.html', {'category': category})
-

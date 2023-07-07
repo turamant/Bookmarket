@@ -2,6 +2,7 @@ import uuid
 
 from django.core.files.storage import FileSystemStorage
 from django.db import models
+from django.urls import reverse
 
 from books.fields import WEBPField
 from django.utils.translation import gettext_lazy as _
@@ -34,10 +35,11 @@ class Book(models.Model):
     title = models.CharField(verbose_name='title', max_length=100, unique=True)
     authors = models.ManyToManyField(Author)
     poster = models.ImageField(verbose_name='poster', upload_to="img/")
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, null=True, blank=True)
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     pdf = models.FileField(verbose_name='pdf', upload_to="pdf", null=True, blank=True)
     year = models.PositiveIntegerField(verbose_name='Год выпуска')
+    is_visible = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-year',)
@@ -45,6 +47,9 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('book_detail', kwargs={'pk': self.pk})
 
 
 def image_folder(instance, filename):
